@@ -1,42 +1,20 @@
 # 🚴 AdventureWorks Cycles – Power BI Business Intelligence Report
 
-> A professional, multi-page BI report built in Power BI Desktop as part of the **Microsoft Power BI Desktop for Business Intelligence** course by Maven Analytics (Udemy).
-
 ---
 
 ## 📸 Screenshots
 
 ### Exec Summary – KPI Overview
-<!--
-  HOW TO ADD SCREENSHOTS:
-  1. In Power BI Desktop press Win + Shift + S
-  2. Select the dashboard area
-  3. Save as PNG in the /screenshots folder in this repository
-  4. Upload to GitHub and remove this comment
--->
-![Exec Summary](screenshots/01_exec_summary.png)
+![Exec Summary](Exec%20Dashboard.png)
 
 ### Regional Performance Map
-![Regional Map](screenshots/02_regional_map.png)
+![Regional Map](Map.png)
 
 ### Product Detail
-![Product Detail](screenshots/03_product_detail.png)
+![Product Detail](Product%20Detail.png)
 
 ### Customer Detail
-![Customer Detail](screenshots/04_customer_detail.png)
-
----
-
-## 📋 Project Overview
-
-| | |
-|---|---|
-| **Tool** | Microsoft Power BI Desktop |
-| **Course** | [Microsoft Power BI Desktop for Business Intelligence – Maven Analytics (Udemy)](https://www.udemy.com/course/microsoft-power-bi-up-running-with-power-bi-desktop/) |
-| **Instructor** | Chris Dutton – Maven Analytics |
-| **Dataset** | AdventureWorks Cycles (provided in course) |
-| **Domain** | Sales / Manufacturing / Business Intelligence |
-| **Report Type** | Descriptive Analytics / KPI Dashboard |
+![Customer Detail](Customer%20Detail.png)
 
 ---
 
@@ -138,21 +116,32 @@ CALCULATE(
 ## 🗄️ Data Model
 
 ```
-Calendar_Lookup ──────────────────────────────┐
-(Date, Year, Month, Quarter, Weekend, etc.)   │
-                                               │
-Customer_Lookup ──────────────────────────────┤
-(CustomerKey, Name, Income Level, Occupation) │
-                                               │ *
-Product_Lookup ──────────────────────────────► Sales_Data ◄── Returns_Data
-(ProductKey, Name, Price, Cost)               │
-       │                                       │
-Product_Subcategories                          │
-       │                                       │
-Product_Categories ───────────────────────────┘
+                    DIMENSION TABLES                        FACT TABLES
+ 
+Calendar_Lookup ──────────────────────────────┬──────────► Sales_Data
+(Date, Year, Month, Quarter, Weekend)         │            (OrderNumber, OrderDate,
+                                               │             CustomerKey, ProductKey,
+                                               └──────────► Returns_Data
+                                                            (ReturnDate, ProductKey,
+Customer_Lookup ──────────────────────────────────────────► Sales_Data        TerritoryKey, Quantity)
+(CustomerKey, Name, Income Level, Occupation)
+ 
+ 
+Product_Lookup ───────────────────────────────┬──────────► Sales_Data
+(ProductKey, ProductName, Price, Cost)        │
+       │                                       └──────────► Returns_Data
+Product_Subcategories
+(SubcategoryKey, SubcategoryName)
+       │
+Product_Categories
+(CategoryKey, CategoryName)
+ 
+ 
+Territory_Lookup ─────────────────────────────┬──────────► Sales_Data
+(TerritoryKey, Region, Country, Continent)    │
+                                               └──────────► Returns_Data
 ```
-
-**Model type:** Star Schema  
+**Model type:** Fact Constellation Schema 
 **Relationships:** One-to-many, single filter direction  
 **Date table:** Custom Calendar table built with DAX `CALENDAR()` function
 
@@ -199,11 +188,10 @@ Product_Categories ────────────────────�
 
 ```
 📦 powerbi-adventureworks
- ┣ 📂 screenshots
- ┃ ┣ 🖼️ 01_exec_summary.png
- ┃ ┣ 🖼️ 02_regional_map.png
- ┃ ┣ 🖼️ 03_product_detail.png
- ┃ ┗ 🖼️ 04_customer_detail.png
+ ┣ 🖼️ Exec Dashboard.png
+ ┣ 🖼️ Map.png
+ ┣ 🖼️ Product Detail.png
+ ┣ 🖼️ Customer Detail.png
  ┣ 📊 AdventureWorks_Report.pbix
  ┗ 📄 README.md
 ```
@@ -223,11 +211,10 @@ Product_Categories ────────────────────�
 This project was built by following the Udemy course:
 
 **[Microsoft Power BI Desktop for Business Intelligence](https://www.udemy.com/course/microsoft-power-bi-up-running-with-power-bi-desktop/)**  
-by **Maven Analytics** | Instructor: Chris Dutton | ⭐ #1 Best Seller on Udemy · 250,000+ five-star reviews
+by **Maven Analytics** | Instructor: Chris Dutton |
 
 ---
 
 ## 👤 Author
 
-**[Your Name]**  
-[LinkedIn](https://linkedin.com/in/your-profile) · [GitHub](https://github.com/your-profile)
+[LinkedIn](https://www.linkedin.com/in/damian-brz%C4%99k-84a368235/) · [GitHub](https://github.com/dbrzek)
